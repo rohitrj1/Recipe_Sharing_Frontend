@@ -32,9 +32,8 @@ export class HomePageComponent {
   }
 
   ngOnInit(){
-    this.recipeService.getRecipes();
     this.authService.getUserProfile();
-
+    this.recipeService.getRecipes();
     this.recipeService.recipeSubject.subscribe(
       (state)=>{
         console.log("state" , state);

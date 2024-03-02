@@ -25,7 +25,7 @@ export class AppComponent {
   ngOnInit(){
     console.log("ngOnInit");
     this.authService.getUserProfile().subscribe({
-      next:data => console.log("req user" ,data),
+      next:data => localStorage.setItem('id',data.id),
       error : error=> console.log("error" , error)
     });
     this.authService.authSubject.subscribe(

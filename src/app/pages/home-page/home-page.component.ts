@@ -21,7 +21,8 @@ import { RecipeService } from '../../services/recipeService/recipe.service';
 })
 export class HomePageComponent {
 
-  recipes:any=[1,1,1,1,1];
+  recipes:any=[];
+  userId !:number;
 
   constructor(public dialog :MatDialog,public authService : AuthService,
     private recipeService : RecipeService){}
@@ -32,8 +33,13 @@ export class HomePageComponent {
   }
 
   ngOnInit(){
-    this.authService.getUserProfile();
-    this.recipeService.getRecipes();
+    // this.authService.getUserProfile();
+    this.recipeService.getRecipes().subscribe({
+      next :(response)=>{
+        console.log(response)
+        this.recipes = response
+      }
+    });
     this.recipeService.recipeSubject.subscribe(
       (state)=>{
         console.log("state" , state);

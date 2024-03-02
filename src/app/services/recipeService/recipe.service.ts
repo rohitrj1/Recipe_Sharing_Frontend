@@ -51,12 +51,12 @@ export class RecipeService {
   }
 
 
-  updateRecipes(recipes:any):Observable<any>{
+  updateRecipes(recipe:any):Observable<any>{
     const headers = this.getHeaders();
-    return this.http.put(`${this.baseUrl}/api/recipe/${recipes.id}`,recipes,{headers}).pipe(
+    return this.http.put(`${this.baseUrl}/api/recipe/${recipe.id}`,recipe,{headers}).pipe(
     tap((updatedRecipe:any)=>{
       const currentState  =this.recipeSubject.value;
-      const updatedRecipes = currentState.recipes.map((item:any)=>
+      const updatedRecipes = currentState.recipe.map((item:any)=>
         item.id === updatedRecipe.id ? updatedRecipe : item
       )
       this.recipeSubject.next({...currentState,
@@ -67,16 +67,16 @@ export class RecipeService {
   }
 
 
-  likeRecipes(id:any):Observable<any>{
+  likeRecipes(id:number):Observable<any>{
     const headers = this.getHeaders();
-    return this.http.put(`${this.baseUrl}/api/recipe/${id}/like`,{headers}).pipe(
-    tap((updatedRecipe:any)=>{
+    return this.http.put(`${this.baseUrl}/api/recipe/${id}/like`,{},{headers}).pipe(
+    tap((likeRecipe:any)=>{
       const currentState  =this.recipeSubject.value;
-      const updatedRecipes = currentState.recipes.map((item:any)=>
-        item.id === updatedRecipe.id ? updatedRecipe : item
+      const likeRecipes = currentState.recipes.map((item:any)=>
+        item.id === likeRecipe.id ? likeRecipe : item
       )
       this.recipeSubject.next({...currentState,
-        recipes:updatedRecipes
+        recipes:likeRecipes
       });
     })
     );

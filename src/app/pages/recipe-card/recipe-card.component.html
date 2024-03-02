@@ -6,17 +6,24 @@
   </mat-card-header>
   <img class="max-h-[400px] object-cover"
   mat-card-image
-  src="https://www.shutterstock.com/shutterstock/photos/149083895/display_1500/stock-vector-male-avatar-profile-picture-vector-149083895.jpg"
+  [src] = "recipe.image"
    alt="Photo of a food">
   <mat-card-content>
     <p>
-     Thsisdnkj dhakhfoih kjbcu hfcuhjkajsbd djkahahjkbkj kbkjahh
+     {{recipe.description}}
     </p>
   </mat-card-content>
   <mat-card-actions class="flex justify-between" >
    <div>
-    <button mat-icon-button  aria-label="Example icon button with a home icon">
-      <mat-icon>favorite</mat-icon>
+    <button (click) ="handleLikeRecipe()" mat-icon-button  aria-label="Example icon button with a home icon">
+      @if (isLiked(recipe)) {
+        <span>❤️</span>
+
+      }@else {
+        <mat-icon >favorite</mat-icon>
+      }
+
+
     </button>
     <button (click) ="handleOpenEditRecipe()" mat-icon-button  aria-label="Example icon button with a home icon">
       <mat-icon>edit</mat-icon>
@@ -26,7 +33,7 @@
     </button>
    </div>
    <div>
-    <button mat-icon-button  aria-label="Example icon button with a home icon">
+    <button (click) ="handleDeleteRecipe()" mat-icon-button  aria-label="Example icon button with a home icon">
       <mat-icon>delete</mat-icon>
     </button>
    </div>
